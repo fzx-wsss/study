@@ -52,6 +52,7 @@ public class TestProducer {
 					+ "\"occurrenceTime\":\""+System.currentTimeMillis()+"\"}";
 			producer.send(new ProducerRecord<String, String>("demo", msg));
 			producer.flush();
+			
 			System.out.println("send");
 			Thread.sleep(10000);
 		}
