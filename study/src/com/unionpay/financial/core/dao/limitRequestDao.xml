@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.financial.core.dao.limitRequestDao" >
+  <resultMap id="BaseResultMap" type="com.unionpay.financial.model.limitRequest" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="optimistic" property="optimistic" jdbcType="INTEGER" />
+    <result column="request_id" property="requestId" jdbcType="VARCHAR" />
+    <result column="bank_institution_code" property="bankInstitutionCode" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="trans_amount" property="transAmount" jdbcType="DECIMAL" />
+    <result column="trans_date" property="transDate" jdbcType="TIMESTAMP" />
+    <result column="limit_type" property="limitType" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+    <result column="capital_type" property="capitalType" jdbcType="VARCHAR" />
+    <result column="request_time" property="requestTime" jdbcType="TIMESTAMP" />
+    <result column="req_reserved" property="reqReserved" jdbcType="VARCHAR" />
+    <result column="des_key" property="desKey" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="resp_code" property="respCode" jdbcType="VARCHAR" />
+    <result column="resp_msg" property="respMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from limit_request
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.financial.model.limitRequest" >
+    insert into limit_request (id, optimistic, request_id, 
+      bank_institution_code, customer_id, version, 
+      trans_amount, trans_date, limit_type, 
+      trade_type, capital_type, request_time, 
+      req_reserved, des_key, create_time, 
+      status, resp_code, resp_msg
+      )
+    values (#{id,jdbcType=VARCHAR}, #{optimistic,jdbcType=INTEGER}, #{requestId,jdbcType=VARCHAR}, 
+      #{bankInstitutionCode,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{transAmount,jdbcType=DECIMAL}, #{transDate,jdbcType=TIMESTAMP}, #{limitType,jdbcType=VARCHAR}, 
+      #{tradeType,jdbcType=VARCHAR}, #{capitalType,jdbcType=VARCHAR}, #{requestTime,jdbcType=TIMESTAMP}, 
+      #{reqReserved,jdbcType=VARCHAR}, #{desKey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{respCode,jdbcType=VARCHAR}, #{respMsg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.financial.model.limitRequest" >
+    update limit_request
+    set optimistic = #{optimistic,jdbcType=INTEGER},
+      request_id = #{requestId,jdbcType=VARCHAR},
+      bank_institution_code = #{bankInstitutionCode,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      trans_amount = #{transAmount,jdbcType=DECIMAL},
+      trans_date = #{transDate,jdbcType=TIMESTAMP},
+      limit_type = #{limitType,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=VARCHAR},
+      capital_type = #{capitalType,jdbcType=VARCHAR},
+      request_time = #{requestTime,jdbcType=TIMESTAMP},
+      req_reserved = #{reqReserved,jdbcType=VARCHAR},
+      des_key = #{desKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      resp_code = #{respCode,jdbcType=VARCHAR},
+      resp_msg = #{respMsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, optimistic, request_id, bank_institution_code, customer_id, version, trans_amount, 
+    trans_date, limit_type, trade_type, capital_type, request_time, req_reserved, des_key, 
+    create_time, status, resp_code, resp_msg
+    from limit_request
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, optimistic, request_id, bank_institution_code, customer_id, version, trans_amount, 
+    trans_date, limit_type, trade_type, capital_type, request_time, req_reserved, des_key, 
+    create_time, status, resp_code, resp_msg
+    from limit_request
+  </select>
+</mapper>
