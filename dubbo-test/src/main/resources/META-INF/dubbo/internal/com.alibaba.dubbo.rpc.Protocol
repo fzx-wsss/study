@@ -1,0 +1,2 @@
+default=com.wsss.frame.dubbo.adpative.Protocol$Adpative
+http=com.wsss.frame.dubbo.adpative.my.HttpProtocol
