@@ -43,7 +43,6 @@ public class TestProducer {
 		// flush() ;所有缓存记录被立刻发送
 		for (int i = 0; i < 10000000; i++) {
 			//这里平均写入４个分区
-			
 			long time = new Date().getTime() - 8*3600*1000;
 			String date = DateUtils.formatDatetime(new Date(time), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 			String msg = "{\"flag\":\"0xc5574f33\", \"offset\":\"37890247\", \"operation_type\":\""+(i%3 == 0 ? "FORCEUPLOADFILE":"WWWWWW")+"\", \"consuming_time\":\"0\", "
