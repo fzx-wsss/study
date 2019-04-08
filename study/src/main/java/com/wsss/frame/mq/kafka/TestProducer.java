@@ -54,7 +54,7 @@ public class TestProducer {
 			producer.send(new ProducerRecord<String, String>("demo", msg));
 			producer.flush();
 			System.out.println("send");
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 		}
 		producer.close();
 	}
