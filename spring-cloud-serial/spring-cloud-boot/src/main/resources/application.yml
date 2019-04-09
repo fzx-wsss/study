@@ -1,0 +1,14 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+server:
+    port: 80
+spring:
+    application:
+        name: spring-boot-client
+    cloud:
+        config:
+          label: master
+          profile: dev
+          uri: http://localhost:8888
