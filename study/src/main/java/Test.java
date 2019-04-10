@@ -25,10 +25,7 @@ import com.wsss.frame.aviator.function.NumberConverFunction;
 public class Test implements Serializable {
 	private static Random random = new Random();
 	public static void main(String[] args) throws IOException {
-		String[] s = new String[] {"1","2","3","4"};
-		String[] s1 = new String[] {"11","22","33","44"};
-		Arrays.stream(s).map(str -> str.split("")).flatMap(Arrays::stream).forEach(System.out::println);// aaabbbccc
-		//Arrays.stream(s).flatMap(x->Arrays.stream(x))
+		String s = "{\"tradeType\":\"T0\",\"requestTime\":\"20190410171349\",\"productCode\":\"000638\",\"tradeTime\":\"20190411\",\"reserved\":{\"comDebitCardAccName\":\"富国基金管理有限公司\"},\"version\":\"1.0.0\",\"bankCode\":\"PAB\",\"bankNo\":\"6216261000000000018\",\"customerId\":\"20090001\",\"accAttr\":\"1\",\"tradeAmount\":\"713\",\"notifyUrl\":\"http://www.pige.com\",\"productName\":\"富国富钱\",\"orderId\":\"200900010010638674\"}";
 	}
 	
 	public static void listPackage(String packageName,File file) {

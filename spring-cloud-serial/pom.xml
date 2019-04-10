@@ -99,5 +99,6 @@
 		<module>spring-cloud-config</module>
 		<module>spring-cloud-boot</module>
 		<module>spring-cloud-eureka</module>
+		<module>spring-cloud-fegin</module>
 	</modules>
 </project>
