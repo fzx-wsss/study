@@ -38,7 +38,7 @@ public class Provider {
         //http.setPort(20881);
         reference.setProtocols(Arrays.asList(dubbo,http));
         reference.export();
-        
+        System.out.println("start");
         System.in.read();
 	}
 }
