@@ -13,18 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import feign.Feign;
+
 @SpringBootApplication
 @RestController
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-public class SpringBootClientApplication {
+public class SpringFeginClientApplication {
 	@Autowired
 	private OrderService orderService;
 	
 	public static void main(String[] args) {
 		//SpringApplication.run(SpringBootClientApplication.class, args);
-		 new SpringApplicationBuilder(SpringBootClientApplication.class)
+		Feign feign = null;
+		 new SpringApplicationBuilder(SpringFeginClientApplication.class)
 			.properties("spring.config.location=classpath:/application.yml").run(args);
 	}
 

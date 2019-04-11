@@ -100,5 +100,6 @@
 		<module>spring-cloud-boot</module>
 		<module>spring-cloud-eureka</module>
 		<module>spring-cloud-fegin</module>
+		<module>spring-cloud-zuul</module>
 	</modules>
 </project>
