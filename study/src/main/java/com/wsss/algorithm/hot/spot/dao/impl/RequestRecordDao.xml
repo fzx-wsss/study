@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsss.algorithm.hot.spot.dao.RequestRecordDao" >
+
+	<resultMap id="BaseResultMap" type="com.wsss.algorithm.hot.spot.model.RequestRecord" >
+		<id column="code" property="code" jdbcType="VARCHAR" />
+		<result column="optimistic" property="optimistic" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="user_code" property="userCode" jdbcType="VARCHAR" />
+		<result column="user_role" property="userRole" jdbcType="CHAR" />
+		<result column="sys_code" property="sysCode" jdbcType="VARCHAR" />
+		<result column="product_code" property="productCode" jdbcType="VARCHAR" />
+		<result column="business_code" property="businessCode" jdbcType="VARCHAR" />
+		<result column="request_id" property="requestId" jdbcType="VARCHAR" />
+		<result column="trans_order" property="transOrder" jdbcType="VARCHAR" />
+		<result column="request_date" property="requestDate" jdbcType="TIMESTAMP" />
+		<result column="trans_type" property="transType" jdbcType="CHAR" />
+		<result column="trans_amt" property="transAmt" jdbcType="DECIMAL" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+		delete from request_record
+		where code = #{code,jdbcType=VARCHAR}
+	</delete>
+
+	<sql id="baseColumns">
+		code, optimistic, create_date,
+		user_code, user_role, sys_code,
+		product_code, business_code, request_id,
+		trans_order, request_date, trans_type,
+		trans_amt, remark
+	</sql>
+
+	<insert id="insert" parameterType="com.wsss.algorithm.hot.spot.model.RequestRecord" >
+		insert into request_record (<include refid="baseColumns"/>)
+		values (#{code,jdbcType=VARCHAR}, #{optimistic,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},
+		#{userCode,jdbcType=VARCHAR}, #{userRole,jdbcType=CHAR}, #{sysCode,jdbcType=VARCHAR},
+		#{productCode,jdbcType=VARCHAR}, #{businessCode,jdbcType=VARCHAR}, #{requestId,jdbcType=VARCHAR},
+		#{transOrder,jdbcType=VARCHAR}, #{requestDate,jdbcType=TIMESTAMP}, #{transType,jdbcType=CHAR},
+		#{transAmt,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.wsss.algorithm.hot.spot.model.RequestRecord" >
+		update request_record
+		set optimistic = #{optimistic,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		user_code = #{userCode,jdbcType=VARCHAR},
+		user_role = #{userRole,jdbcType=CHAR},
+		sys_code = #{sysCode,jdbcType=VARCHAR},
+		product_code = #{productCode,jdbcType=VARCHAR},
+		business_code = #{businessCode,jdbcType=VARCHAR},
+		request_id = #{requestId,jdbcType=VARCHAR},
+		trans_order = #{transOrder,jdbcType=VARCHAR},
+		request_date = #{requestDate,jdbcType=TIMESTAMP},
+		trans_type = #{transType,jdbcType=CHAR},
+		trans_amt = #{transAmt,jdbcType=DECIMAL},
+		remark = #{remark,jdbcType=VARCHAR}
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select <include refid="baseColumns"/>
+		from request_record
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap" >
+		select <include refid="baseColumns"/>
+		from request_record
+	</select>
+
+	<select id="selectByUniqueForUpdate" resultMap="BaseResultMap" >
+		select <include refid="baseColumns"/>
+		from request_record
+		where request_id = #{requestId} and trans_order = #{transOrder} and sys_code = #{sysCode}
+	</select>
+</mapper>

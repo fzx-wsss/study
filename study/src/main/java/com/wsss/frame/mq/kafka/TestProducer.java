@@ -43,19 +43,23 @@ public class TestProducer {
 		// flush() ;所有缓存记录被立刻发送
 		for (int i = 0; i < 10000000; i++) {
 			//这里平均写入４个分区
+			String Identification = (char) (i/60 + 65) + "";
+			System.out.println(Identification);
+			if("G".equals(Identification)) break;
 			
 			long time = new Date().getTime() - 8*3600*1000;
 			String date = DateUtils.formatDatetime(new Date(time), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 			String msg = "{\"flag\":\"0xc5574f33\", \"offset\":\"37890247\", \"operation_type\":\""+(i%3 == 0 ? "FORCEUPLOADFILE":"WWWWWW")+"\", \"consuming_time\":\"0\", "
-					+ "\"level\":\"INFO\", \"input_type\":\"log\", \"Identification\":\"F\", \"source\":\"/opt/jar_lfs-acceptor/logs/lfs-acceptor.log\", "
+					+ "\"level\":\"INFO\", \"input_type\":\"log\", \"Identification\":\""+Identification+"\", \"source\":\"/opt/jar_lfs-acceptor/logs/lfs-acceptor.log\", "
 					+ "\"type\":\"businesstp-settle-core\", \"token\":\"5CZL706L0YpgqP7u47k1Ew==\", \"Result\":\""+i+"\", "
 					+ "\"@timestamp\":\""+date+"\", \"appname\":\"lfsserver\", \"@version\":\"1\", \"host\":\"lfs-acceptor-6-69\", "
-					+ "\"occurrenceTime2\":\""+System.currentTimeMillis()+"\"}";
+					+ "\"occurrenceTime\":\""+System.currentTimeMillis()+"\"}";
 			producer.send(new ProducerRecord<String, String>("demo", msg));
 			producer.flush();
 			System.out.println("send");
-			Thread.sleep(100);
+			Thread.sleep(1000);
 		}
+		System.out.println("test end");
 		producer.close();
 	}
 }

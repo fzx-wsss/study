@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsss.algorithm.hot.spot.dao.TotalLimitFlowDao" >
+	<resultMap id="BaseResultMap" type="com.wsss.algorithm.hot.spot.model.TotalLimitFlow" >
+		<id column="code" property="code" jdbcType="VARCHAR" />
+		<result column="optimistic" property="optimistic" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="day_flow" property="dayFlow" jdbcType="DECIMAL" />
+		<result column="month_flow" property="monthFlow" jdbcType="DECIMAL" />
+		<result column="limit_code" property="limitCode" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="baseColumns">
+		code, optimistic, create_date,
+		day_flow, month_flow, limit_code,
+		remark
+	</sql>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+		delete from total_limit_flow
+		where code = #{code,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.wsss.algorithm.hot.spot.model.TotalLimitFlow" >
+		insert into total_limit_flow (<include refid="baseColumns"/>)
+		values (#{code,jdbcType=VARCHAR}, #{optimistic,jdbcType=INTEGER}, #{createDate,jdbcType=DATE},
+		#{dayFlow,jdbcType=DECIMAL}, #{monthFlow,jdbcType=DECIMAL}, #{limitCode,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.wsss.algorithm.hot.spot.model.TotalLimitFlow" >
+		update total_limit_flow
+		set optimistic = #{optimistic,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=DATE},
+		day_flow = #{dayFlow,jdbcType=DECIMAL},
+		month_flow = #{monthFlow,jdbcType=DECIMAL},
+		limit_code = #{limitCode,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR}
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select code, optimistic, create_date, day_flow, month_flow, limit_code, remark
+		from total_limit_flow
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" >
+		select <include refid="baseColumns"/>
+		from total_limit_flow
+	</select>
+
+	<select id="selectByLimitCodeAndDate" resultMap="BaseResultMap" >
+		select <include refid="baseColumns"/>
+		from total_limit_flow
+		where limit_code = #{limitCode} and create_date = #{date,jdbcType=DATE}
+	</select>
+	<select id="selectByLimitCodeAndDateForUpdate" resultMap="BaseResultMap" >
+		select <include refid="baseColumns"/>
+		from total_limit_flow
+		where limit_code = #{limitCode} and create_date = #{date,jdbcType=DATE}
+		for update
+	</select>
+</mapper>

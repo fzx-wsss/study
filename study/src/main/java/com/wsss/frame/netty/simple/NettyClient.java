@@ -56,7 +56,7 @@ public class NettyClient {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		NettyClient client = new NettyClient(8443, "localhost");
+		NettyClient client = new NettyClient(9090, "localhost");
 
 	}
 }
