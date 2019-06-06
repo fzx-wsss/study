@@ -46,7 +46,7 @@
 		
 		
 		<!--生成对应表及类名 -->
-		<table tableName="limit_request" domainObjectName="LimitRequest" >
+		<table tableName="auto_require_config_his" domainObjectName="AutoRequireConfigHis" >
 		</table>
 		
 		

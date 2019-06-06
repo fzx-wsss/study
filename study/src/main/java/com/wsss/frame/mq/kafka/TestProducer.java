@@ -41,7 +41,7 @@ public class TestProducer {
 		// timeout for the producer to complete the sending of all incomplete
 		// requests.
 		// flush() ;所有缓存记录被立刻发送
-		for (int i = 0; i < 10000000; i++) {
+		for (int i = 0; i < 3; i++) {
 			//这里平均写入４个分区
 			String Identification = (char) (i/60 + 65) + "";
 			System.out.println(Identification);
@@ -57,7 +57,7 @@ public class TestProducer {
 			producer.send(new ProducerRecord<String, String>("demo", msg));
 			producer.flush();
 			System.out.println("send");
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		}
 		System.out.println("test end");
 		producer.close();

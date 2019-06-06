@@ -11,12 +11,14 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
+import java.util.concurrent.TimeUnit;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.google.type.MoneyOrBuilder;
 
 /**
  * @Description: 这里用一句话描述这个类的作用
@@ -28,7 +30,9 @@ public class Test implements Serializable {
 	private static Random random = new Random();
 
 	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-		System.out.println(MoneyOrBuilder.class);
+		new ThreadPoolExecutor(1, 1, 0L, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000),
+				new CallerRunsPolicy());
+
 	}
 
 	public static byte getByte(String s) {

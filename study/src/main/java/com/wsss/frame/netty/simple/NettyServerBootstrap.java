@@ -26,8 +26,8 @@ public class NettyServerBootstrap {
 
 	private void bind() {
 
-		EventLoopGroup boss = new NioEventLoopGroup();
-		EventLoopGroup worker = new NioEventLoopGroup();
+		EventLoopGroup boss = new NioEventLoopGroup(1);
+		EventLoopGroup worker = new NioEventLoopGroup(1);
 		try {
 
 			ServerBootstrap bootstrap = new ServerBootstrap();
