@@ -4,7 +4,66 @@ spring:
   application:
     name: spring-cloud-zuul
     
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
+#eureka:
+#    client:
+#        serviceUrl:
+#            defaultZone: http://localhost:8761/eureka/
+            
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 10000
+            
+            circuitBreaker:
+                enabled: true
+                errorThresholdPercentage: 50
+                forceClosed: false
+                forceOpen: false
+                requestVolumeThreshold: 20
+                sleepWindowInMilliseconds: 5000
+    metrics:
+        enabled: true
+        polling-interval-ms: 2000
+    threadpool:
+        default:
+            allowMaximumSizeToDivergeFromCoreSize: true
+            coreSize: 1
+            maxQueueSize: -1
+            maximumSize: 1
+            queueSizeRejectionThreshold: 200
+        spring-boot-client:
+            allowMaximumSizeToDivergeFromCoreSize: true
+            coreSize: 2
+            maxQueueSize: -1
+            maximumSize: 2
+            queueSizeRejectionThreshold: 200
+zuul:
+    addHostHeader: true
+    ribbon-isolation-strategy: THREAD
+    thread-pool:
+        use-separate-thread-pools: true
+    
+    sensitiveHeaders: Cookie,Set-Cookie
+    ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin, Access-Control-Allow-Methods
+    routes:
+        spring-boot-client:
+            path: /resource/spring-boot-client/**
+            serviceId: spring-boot-client
+        baidu:
+            path: /resource/baidu/**
+            serviceId: baidu
+            strip-prefix: true
+spring-boot-client:
+     ribbon:
+         listOfServers: http://localhost
+baidu: 
+     ribbon:
+         listOfServers: http://www.baidu.com/
+ribbon:
+    ConnectTimeout: 2000
+    ReadTimeout: 2000
+    eureka:
+        enabled: false

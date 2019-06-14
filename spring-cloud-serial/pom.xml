@@ -101,5 +101,7 @@
 		<module>spring-cloud-eureka</module>
 		<module>spring-cloud-fegin</module>
 		<module>spring-cloud-zuul</module>
+		<module>spring-boot-security</module>
+		<module>spring-security-oauth2</module>
 	</modules>
 </project>
