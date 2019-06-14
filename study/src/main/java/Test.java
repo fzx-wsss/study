@@ -7,18 +7,26 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.security.NoSuchAlgorithmException;
 import java.security.ProtectionDomain;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
-import java.util.concurrent.TimeUnit;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import com.wsss.basic.util.http.HttpClientUtils;
+import com.wsss.basic.util.http.HttpClientUtils.Method;
+import com.wsss.basic.util.json.JsonUtils;
 
 /**
  * @Description: 这里用一句话描述这个类的作用
@@ -29,10 +37,27 @@ import org.apache.commons.lang3.StringUtils;
 public class Test implements Serializable {
 	private static Random random = new Random();
 
-	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-		new ThreadPoolExecutor(1, 1, 0L, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000),
-				new CallerRunsPolicy());
+	private static ResponseHandler<String> stringResponseHandler = new ResponseHandler<String>() {
+		@Override
+		public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+			int statusCode = response.getStatusLine().getStatusCode();
+			if (statusCode >= 200 && statusCode < 300) {
+				HttpEntity entity = response.getEntity();
+				return entity != null ? EntityUtils.toString(entity) : null;
+			} else {
+				throw new ClientProtocolException("Unexpected response status: " + statusCode);
+			}
+		}
+	};
 
+	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+		List<NameValuePair> params = new ArrayList<>();
+		params.add(new BasicNameValuePair("access_token", "3be22a0c02103115ab9cd847a2168871"));
+		params.add(new BasicNameValuePair("id", "1"));
+		String s = HttpClientUtils.send(Method.GET, "https://oapi.dingtalk.com/department/list", null, null, params,
+				true, "UTF-8", stringResponseHandler, null, null);
+		DepartmentList list = JsonUtils.toObject(s, DepartmentList.class);
+		System.out.println(list);
 	}
 
 	public static byte getByte(String s) {

@@ -1,0 +1,2 @@
+database=com.wsss.spi.dubbo.DatabaseSearch
+file=com.wsss.spi.dubbo.FileSearch

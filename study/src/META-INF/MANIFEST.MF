@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Premain-Class: com.wsss.basic.java.agent.MyAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
