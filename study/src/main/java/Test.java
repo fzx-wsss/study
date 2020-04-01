@@ -38,6 +38,7 @@ public class Test implements Serializable {
 
 	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 		System.out.println(maximalRectangle(new char[][] {
+
 		}));
 	}
 
