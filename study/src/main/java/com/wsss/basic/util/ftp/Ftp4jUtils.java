@@ -179,7 +179,6 @@ public class Ftp4jUtils {
 
 		/**
 		 * 上传文件到服务器
-		 * @param remoteFile 远程文件名，在上传之前已经将服务器工作目录做了改变
 		 * @param localFile 本地文件File句柄，绝对路径
 		 * @param ftpClient FTPClient引用
 		 * @return 是否上传成功
