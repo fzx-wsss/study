@@ -1,3 +1,5 @@
+package com.wsss.algorithm.collect;
+
 import java.util.Random;
 /**
  * 有10张纸牌，编号分别是1到10，现在要将这10张纸牌分为2堆，其中一堆求和为36，另一堆求积为360，问应该怎么分？

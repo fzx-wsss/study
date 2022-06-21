@@ -1,4 +1,6 @@
-public class CoinsChange {  
+package com.wsss.algorithm.collect;
+
+public class CoinsChange {
   
     /** 
      *  

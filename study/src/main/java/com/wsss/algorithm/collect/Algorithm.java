@@ -1,3 +1,5 @@
+package com.wsss.algorithm.collect;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -622,7 +624,6 @@ public class Algorithm {
 	 * 将字符串第a位换到最前面
 	 * @param str
 	 * @param a
-	 * @param b
 	 * @return
 	 */
 	public static String change(String str,int a) {

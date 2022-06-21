@@ -1,3 +1,4 @@
+package com.wsss.algorithm.rbtree;
 
 public class RBTreeTest {
 	/**

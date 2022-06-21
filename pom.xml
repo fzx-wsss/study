@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	 <parent>  
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-starter-parent</artifactId>  
+        <version>1.5.19.RELEASE</version>  
+        <relativePath/>
+    </parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.wsss</groupId>
+	<artifactId>study-parent</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+	<properties>
+		<spring.version>4.3.6.RELEASE</spring.version>
+	</properties>
+	<modules>
+		<module>study</module>
+		<module>spring-cloud-serial</module>
+		<module>dubbo-test</module>
+	</modules>
+
+	<build>
+		<resources>
+			 <resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+	</build>
+</project>

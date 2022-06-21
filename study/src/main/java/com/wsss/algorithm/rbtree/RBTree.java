@@ -1,3 +1,5 @@
+package com.wsss.algorithm.rbtree;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
