@@ -1,6 +1,7 @@
 package com.wsss.frame.netty.webSocket.handler;
 
 import io.netty.channel.*;
+import io.netty.handler.codec.http.CombinedHttpHeaders;
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
@@ -18,10 +19,10 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<FullHttp
     //netty自带的异步处理
     public static ChannelPromise handshakeFuture;
 
-    public WebSocketClientHandler() {
+    public WebSocketClientHandler(URI uri) {
         try {
             this.handshaker = WebSocketClientHandshakerFactory.newHandshaker(
-                    new URI("ws://127.0.0.1:12345/test/api"), WebSocketVersion.V13, null, true, new DefaultHttpHeaders());
+                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders(false));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,6 +33,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<FullHttp
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpResponse msg) throws Exception {
         System.out.println("当前握手的状态" + this.handshaker.isHandshakeComplete());
         Channel ch = ctx.channel();
+        System.out.println("服务端的消息" + msg.headers());
         //进行握手操作
         if (!this.handshaker.isHandshakeComplete()) {
             try {
@@ -41,8 +43,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<FullHttp
                 this.handshakeFuture.setSuccess();
                 System.out.println("服务端的消息" + msg.headers());
             } catch (WebSocketHandshakeException var7) {
-                String errorMsg = String.format("握手失败,status:%s,reason:%s", msg.status(), msg.content().toString(CharsetUtil.UTF_8));
-                this.handshakeFuture.setFailure(new Exception(errorMsg));
+                var7.printStackTrace();
             }
         }
     }

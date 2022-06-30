@@ -182,6 +182,11 @@
 			<artifactId>netty-all</artifactId>
 			<version>4.1.36.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>3.11.0</version>
+		</dependency>
 		<!-- zk -->
 		<dependency>
 			<groupId>com.101tec</groupId>
@@ -385,6 +390,10 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

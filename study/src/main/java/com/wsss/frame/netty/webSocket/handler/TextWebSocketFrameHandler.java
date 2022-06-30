@@ -1,14 +1,17 @@
 package com.wsss.frame.netty.webSocket.handler;
 
+import com.wsss.frame.netty.webSocket.test.GzipUtils;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import io.netty.handler.codec.http.websocketx.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+    public static SimpleDateFormat sbf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
     /**
      * @param channelHandlerContext
      * @param webSocketFrame
@@ -31,7 +34,16 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSo
 
         if (msg instanceof TextWebSocketFrame) {
             String message = ((TextWebSocketFrame) msg).text();
-            System.out.println("Client:" + incoming.remoteAddress() + " message ->" + message);
+            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + " message ->" + message);
         }
+
+        if (msg instanceof BinaryWebSocketFrame) {
+            byte[] message = ByteBufUtil.getBytes(((BinaryWebSocketFrame) msg).content());
+            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + " message ->" + new String(GzipUtils.decompress(message)));
+        }
+    }
+
+    private String getTime() {
+        return sbf.format(new Date());
     }
 }
