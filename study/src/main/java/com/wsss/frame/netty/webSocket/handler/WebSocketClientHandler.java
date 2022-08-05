@@ -22,7 +22,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<FullHttp
     public WebSocketClientHandler(URI uri) {
         try {
             this.handshaker = WebSocketClientHandshakerFactory.newHandshaker(
-                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders(false));
+                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders(false),655360);
         } catch (Exception e) {
             e.printStackTrace();
         }

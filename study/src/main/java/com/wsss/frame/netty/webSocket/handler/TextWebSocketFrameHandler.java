@@ -39,7 +39,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSo
 
         if (msg instanceof BinaryWebSocketFrame) {
             byte[] message = ByteBufUtil.getBytes(((BinaryWebSocketFrame) msg).content());
-            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + " message ->" + new String(GzipUtils.decompress(message)));
+            System.out.println(getTime() + " message ->" + new String(GzipUtils.decompress(message)));
         }
     }
 
