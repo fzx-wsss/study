@@ -33,7 +33,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<FullHttp
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpResponse msg) throws Exception {
         System.out.println("当前握手的状态" + this.handshaker.isHandshakeComplete());
         Channel ch = ctx.channel();
-        System.out.println("服务端的消息" + msg.headers());
+        System.out.println("服务端的消息" + msg.content().toString(CharsetUtil.UTF_8));
         //进行握手操作
         if (!this.handshaker.isHandshakeComplete()) {
             try {

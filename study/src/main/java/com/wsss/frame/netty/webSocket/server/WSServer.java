@@ -1,5 +1,6 @@
 package com.wsss.frame.netty.webSocket.server;
 
+import com.wsss.frame.netty.webSocket.handler.AccessHandler;
 import com.wsss.frame.netty.webSocket.handler.AllMsgHandler;
 import com.wsss.frame.netty.webSocket.handler.TextWebSocketFrameHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -39,7 +40,7 @@ public class WSServer {
                             pipeline.addLast("http-aggregator", new HttpObjectAggregator(131072, true));
 
                             pipeline.addLast(new ChunkedWriteHandler());
-
+                            pipeline.addLast(new AccessHandler());
                             pipeline.addLast("WebSocket-protocol", new WebSocketServerProtocolHandler("/test/api"));
 
                             pipeline.addLast(executors,new TextWebSocketFrameHandler());

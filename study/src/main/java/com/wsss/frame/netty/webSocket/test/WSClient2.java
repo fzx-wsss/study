@@ -21,7 +21,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
-public class WSClient {
+public class WSClient2 {
 
     //public static final String[] symbols = new String[] {"grt3lusdt","iost3lusdt","alpha3lusdt","kava3lusdt","rvn3lusdt","snx3lusdt","bat3lusdt","band3lusdt","zil3lusdt","hnt3lusdt","chr3lusdt","bal3lusdt","ray3lusdt","mkr3lusdt","iotx3lusdt","blz3lusdt","near3lusdt","rune3lusdt","comp3lusdt","arpa3lusdt","reef3lusdt","one3lusdt","celr3lusdt","sfp3lusdt","bel3lusdt","coti3lusdt","zec3lusdt","omg3lusdt","egld3lusdt","nkn3lusdt","trb3lusdt","alice3lusdt","c983lusdt","icx3lusdt","dent3lusdt","ar3lusdt","bake3lusdt","zen3lusdt","ocean3lusdt","sxp3lusdt","srm3lusdt","lina3lusdt","tlm3lusdt","unfi3lusdt","dash3lusdt","tomo3lusdt","rsr3lusdt","ctsi3lusdt","zrx3lusdt","ctk3lusdt","flow3lusdt","waves3lusdt","knc3lusdt"};
     public static final String[] symbols = new String[] {"btcusdt"};
@@ -30,7 +30,7 @@ public class WSClient {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
 //            URI websocketURI = new URI("wss://ws.bitrue.com/etf/ws");
             URI websocketURI = new URI("wss://ws.byqian.com/etf/ws");
-//            URI websocketURI = new URI("ws://3.0.135.116:8888/stream?listenKey=598e55b97a78de9b7f962d1587d72bae57bb734d0df77c41ab45cf98a0227e0e");
+//            URI websocketURI = new URI("ws://3.0.135.116:8888/stream?listenKey=f13e862f1f5cf3ecbad9db8f0b19cb06ad8b6b50858fef531712cc7e36bdc9ce");
             //netty基本操作，线程组
             EventLoopGroup group = new NioEventLoopGroup();
             //netty基本操作，启动类
@@ -65,10 +65,7 @@ public class WSClient {
             for(String symbol : symbols) {
                 sengSub(channel,symbol);
             }
-            TimeUnit.SECONDS.sleep(10);
-            for(String symbol : symbols) {
-                sengUnsub(channel,symbol);
-            }
+
             //给服务端发送的内容，如果客户端与服务端连接成功后，可以多次掉用这个方法发送消息
             for(int i =0 ;i< 100000;i++) {
 //                sengPong(channel);
@@ -84,23 +81,6 @@ public class WSClient {
         //发送的内容，是一个文本格式的内容
         String putMessage = "{\"event\":\"sub\",\"params\":{\"cb_id\":\""+symbol+"\",\"channel\":\"market_"+symbol+"_net_value\",\"top\":20}}";
 //        String putMessage = "{\"event\":\"sub\",\"params\":{\"channel\":\"user_order_update\"}}";
-        TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
-        channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
-            public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                if (channelFuture.isSuccess()) {
-                    System.out.println("消息发送成功，发送的消息是：" + putMessage);
-                } else {
-                    System.out.println("消息发送失败 " + channelFuture.cause().getMessage());
-                }
-            }
-        });
-
-    }
-
-    public static void sengUnsub(Channel channel,String symbol) {
-        //发送的内容，是一个文本格式的内容
-//        String putMessage = "{\"event\":\"sub\",\"params\":{\"cb_id\":\""+symbol+"\",\"channel\":\"market_"+symbol+"_net_value\",\"top\":20}}";
-        String putMessage = "{\"event\":\"unsub\",\"params\":{\"channel\":\"user_order_update\"}}";
         TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
         channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
             public void operationComplete(ChannelFuture channelFuture) throws Exception {
