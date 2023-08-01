@@ -1,18 +1,22 @@
 package com.wsss.frame.dubbo.adpative;
 
-import com.alibaba.dubbo.common.extension.Adaptive;
-import com.alibaba.dubbo.common.extension.ExtensionLoader;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.extension.Adaptive;
+import org.apache.dubbo.common.extension.ExtensionLoader;
+import org.apache.dubbo.rpc.cluster.Router;
+import org.apache.dubbo.rpc.cluster.RouterFactory;
+
 @Adaptive
-public class RouterFactory$Adpative implements com.alibaba.dubbo.rpc.cluster.RouterFactory {
-	public com.alibaba.dubbo.rpc.cluster.Router getRouter(com.alibaba.dubbo.common.URL arg0) {
+public class RouterFactory$Adpative implements RouterFactory {
+	public Router getRouter(URL arg0) {
 		if (arg0 == null) throw new IllegalArgumentException("url == null");
-		com.alibaba.dubbo.common.URL url = arg0;
+		URL url = arg0;
 		String extName = url.getProtocol();
 		if (extName == null) throw new IllegalStateException(
 				"Fail to get extension(com.alibaba.dubbo.rpc.cluster.RouterFactory) name from url(" + url.toString()
 						+ ") use keys([protocol])");
-		com.alibaba.dubbo.rpc.cluster.RouterFactory extension = (com.alibaba.dubbo.rpc.cluster.RouterFactory) ExtensionLoader
-				.getExtensionLoader(com.alibaba.dubbo.rpc.cluster.RouterFactory.class).getExtension(extName);
+		RouterFactory extension = (RouterFactory) ExtensionLoader
+				.getExtensionLoader(RouterFactory.class).getExtension(extName);
 		return extension.getRouter(arg0);
 	}
 }

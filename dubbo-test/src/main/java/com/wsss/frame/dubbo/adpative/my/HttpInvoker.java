@@ -1,11 +1,17 @@
 package com.wsss.frame.dubbo.adpative.my;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.rpc.Invocation;
-import com.alibaba.dubbo.rpc.Result;
-import com.alibaba.dubbo.rpc.protocol.AbstractInvoker;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.rpc.Invocation;
+import org.apache.dubbo.rpc.Result;
+import org.apache.dubbo.rpc.protocol.AbstractInvoker;
 
 public class HttpInvoker<T> extends AbstractInvoker<T> {
 
@@ -35,34 +41,109 @@ public class HttpInvoker<T> extends AbstractInvoker<T> {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
-			public Object getResult() {
-				// TODO Auto-generated method stub
-				return null;
+			public void setValue(Object value) {
+
 			}
-			
+
+
 			@Override
 			public Throwable getException() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
+			@Override
+			public void setException(Throwable t) {
+
+			}
+
 			@Override
 			public Map<String, String> getAttachments() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
+			@Override
+			public Map<String, Object> getObjectAttachments() {
+				return null;
+			}
+
+			@Override
+			public void addAttachments(Map<String, String> map) {
+
+			}
+
+			@Override
+			public void addObjectAttachments(Map<String, Object> map) {
+
+			}
+
+			@Override
+			public void setAttachments(Map<String, String> map) {
+
+			}
+
+			@Override
+			public void setObjectAttachments(Map<String, Object> map) {
+
+			}
+
 			@Override
 			public String getAttachment(String key, String defaultValue) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
+			@Override
+			public Object getObjectAttachment(String key, Object defaultValue) {
+				return null;
+			}
+
+			@Override
+			public void setAttachment(String key, String value) {
+
+			}
+
+			@Override
+			public void setAttachment(String key, Object value) {
+
+			}
+
+			@Override
+			public void setObjectAttachment(String key, Object value) {
+
+			}
+
+			@Override
+			public Result whenCompleteWithContext(BiConsumer<Result, Throwable> fn) {
+				return null;
+			}
+
+			@Override
+			public <U> CompletableFuture<U> thenApply(Function<Result, ? extends U> fn) {
+				return null;
+			}
+
+			@Override
+			public Result get() throws InterruptedException, ExecutionException {
+				return null;
+			}
+
+			@Override
+			public Result get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+				return null;
+			}
+
 			@Override
 			public String getAttachment(String key) {
 				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Object getObjectAttachment(String key) {
 				return null;
 			}
 		};

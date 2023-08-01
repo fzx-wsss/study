@@ -1,8 +1,9 @@
 package com.wsss.spi.dubbo;
 
+import org.apache.dubbo.common.extension.ExtensionLoader;
+
 import java.util.Iterator;
 
-import com.alibaba.dubbo.common.extension.ExtensionLoader;
 
 public class SearchTest {
 	public static void main(String[] args) {

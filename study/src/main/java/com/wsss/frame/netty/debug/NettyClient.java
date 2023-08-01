@@ -1,6 +1,5 @@
 package com.wsss.frame.netty.debug;
 
-import com.alibaba.dubbo.remoting.transport.netty.NettyHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

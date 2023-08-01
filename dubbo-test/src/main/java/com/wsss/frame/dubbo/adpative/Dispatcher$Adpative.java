@@ -1,22 +1,24 @@
 package com.wsss.frame.dubbo.adpative;
 
-import com.alibaba.dubbo.common.extension.Activate;
-import com.alibaba.dubbo.common.extension.Adaptive;
-import com.alibaba.dubbo.common.extension.ExtensionLoader;
+
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.extension.Adaptive;
+import org.apache.dubbo.common.extension.ExtensionLoader;
+import org.apache.dubbo.remoting.ChannelHandler;
+import org.apache.dubbo.remoting.Dispatcher;
 
 @Adaptive
-public class Dispatcher$Adpative implements com.alibaba.dubbo.remoting.Dispatcher {
-	public com.alibaba.dubbo.remoting.ChannelHandler dispatch(com.alibaba.dubbo.remoting.ChannelHandler arg0,
-			com.alibaba.dubbo.common.URL arg1) {
+public class Dispatcher$Adpative implements Dispatcher {
+	public ChannelHandler dispatch(ChannelHandler arg0, URL arg1) {
 		if (arg1 == null) throw new IllegalArgumentException("url == null");
-		com.alibaba.dubbo.common.URL url = arg1;
+		URL url = arg1;
 		String extName = url.getParameter("dispatcher",
 				url.getParameter("dispather", url.getParameter("channel.handler", "all")));
 		if (extName == null) throw new IllegalStateException(
 				"Fail to get extension(com.alibaba.dubbo.remoting.Dispatcher) name from url(" + url.toString()
 						+ ") use keys([dispatcher, dispather, channel.handler])");
-		com.alibaba.dubbo.remoting.Dispatcher extension = (com.alibaba.dubbo.remoting.Dispatcher) ExtensionLoader
-				.getExtensionLoader(com.alibaba.dubbo.remoting.Dispatcher.class).getExtension(extName);
+		Dispatcher extension = (Dispatcher) ExtensionLoader
+				.getExtensionLoader(Dispatcher.class).getExtension(extName);
 		return extension.dispatch(arg0, arg1);
 	}
 }

@@ -1,11 +1,11 @@
 
 import java.io.IOException;
 
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
-import com.alibaba.dubbo.config.ServiceConfig;
 import com.wsss.frame.dubbo.service.DemoService;
 import com.wsss.frame.dubbo.service.impl.DemoServiceImpl;
+import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.config.ServiceConfig;
 
 public class Provider {
 
@@ -13,7 +13,7 @@ public class Provider {
 		ApplicationConfig applicationConfig = new ApplicationConfig();
 		applicationConfig.setName("accountInTest");
 		RegistryConfig registry = new RegistryConfig();
-		registry.setAddress("zookeeper://127.0.0.1:2181");
+		registry.setAddress("zookeeper://10.48.1.124:2181");
 		ServiceConfig<DemoService> reference = new ServiceConfig<>();
 
 		reference.setApplication(applicationConfig);

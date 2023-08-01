@@ -1,6 +1,7 @@
 package com.wsss.spi.dubbo;
 
-import com.alibaba.dubbo.common.extension.SPI;
+
+import org.apache.dubbo.common.extension.SPI;
 
 @SPI
 public interface Search {
