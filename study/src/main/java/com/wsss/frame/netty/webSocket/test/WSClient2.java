@@ -2,6 +2,7 @@ package com.wsss.frame.netty.webSocket.test;
 
 import com.wsss.frame.netty.webSocket.handler.AllMsgHandler;
 import com.wsss.frame.netty.webSocket.handler.TextWebSocketFrameHandler;
+import com.wsss.frame.netty.webSocket.handler.TextWebSocketFrameHandler2;
 import com.wsss.frame.netty.webSocket.handler.WebSocketClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -24,12 +25,12 @@ import java.util.concurrent.TimeUnit;
 public class WSClient2 {
 
     //public static final String[] symbols = new String[] {"grt3lusdt","iost3lusdt","alpha3lusdt","kava3lusdt","rvn3lusdt","snx3lusdt","bat3lusdt","band3lusdt","zil3lusdt","hnt3lusdt","chr3lusdt","bal3lusdt","ray3lusdt","mkr3lusdt","iotx3lusdt","blz3lusdt","near3lusdt","rune3lusdt","comp3lusdt","arpa3lusdt","reef3lusdt","one3lusdt","celr3lusdt","sfp3lusdt","bel3lusdt","coti3lusdt","zec3lusdt","omg3lusdt","egld3lusdt","nkn3lusdt","trb3lusdt","alice3lusdt","c983lusdt","icx3lusdt","dent3lusdt","ar3lusdt","bake3lusdt","zen3lusdt","ocean3lusdt","sxp3lusdt","srm3lusdt","lina3lusdt","tlm3lusdt","unfi3lusdt","dash3lusdt","tomo3lusdt","rsr3lusdt","ctsi3lusdt","zrx3lusdt","ctk3lusdt","flow3lusdt","waves3lusdt","knc3lusdt"};
-    public static final String[] symbols = new String[] {"btcusdt"};
+    public static final String[] symbols = new String[] {"xrp3lusdt","btcusdt","btc3susdt","ada3lusdt","ada3susdt", "eth3lusdt", "eth3susdt","doge3lusdt", "doge3susdt", "ltc3lusdt","ltc3susdt", "eos3susdt","eos3lusdt"};
     public static void main(String[] args) throws Exception {
         try {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
 //            URI websocketURI = new URI("wss://ws.bitrue.com/etf/ws");
-            URI websocketURI = new URI("wss://ws.byqian.com/etf/ws");
+            URI websocketURI = new URI("wss://ws.byqian.com/kline-api/ws");
 //            URI websocketURI = new URI("ws://3.0.135.116:8888/stream?listenKey=f13e862f1f5cf3ecbad9db8f0b19cb06ad8b6b50858fef531712cc7e36bdc9ce");
             //netty基本操作，线程组
             EventLoopGroup group = new NioEventLoopGroup();
@@ -43,14 +44,14 @@ public class WSClient2 {
                             if("wss".equals(websocketURI.getScheme())) {
                                 SslContext sslCtx = SslContextBuilder.forClient()
                                         .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
-                                pipeline.addLast(sslCtx.newHandler(socketChannel.alloc()));
+                                pipeline.addLast(sslCtx.newHandler(socketChannel.alloc(),websocketURI.getHost(),websocketURI.getPort()));
                             }
 
                             pipeline.addLast("http-codec",new HttpClientCodec());
                             pipeline.addLast("aggregator", new HttpObjectAggregator(1024 * 1024 * 10));
                             pipeline.addLast(new ChunkedWriteHandler());
                             pipeline.addLast("hookedHandler", new WebSocketClientHandler(websocketURI));
-                            pipeline.addLast("textHandler", new TextWebSocketFrameHandler());
+                            pipeline.addLast("textHandler", new TextWebSocketFrameHandler2());
                             pipeline.addLast("allHandler",new AllMsgHandler());
                         }
                     });
@@ -79,7 +80,7 @@ public class WSClient2 {
 
     public static void sengSub(Channel channel,String symbol) {
         //发送的内容，是一个文本格式的内容
-        String putMessage = "{\"event\":\"sub\",\"params\":{\"cb_id\":\""+symbol+"\",\"channel\":\"market_"+symbol+"_net_value\",\"top\":20}}";
+        String putMessage = "{\"event\":\"sub\",\"params\":{\"cb_id\":\""+symbol+"\",\"channel\":\"market_"+symbol+"_depth_step0\",\"top\":20}}";
 //        String putMessage = "{\"event\":\"sub\",\"params\":{\"channel\":\"user_order_update\"}}";
         TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
         channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {

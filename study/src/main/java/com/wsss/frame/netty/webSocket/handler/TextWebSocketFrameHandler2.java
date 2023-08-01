@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+public class TextWebSocketFrameHandler2 extends SimpleChannelInboundHandler<WebSocketFrame> {
     public static SimpleDateFormat sbf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
     /**
      * @throws Exception
@@ -38,10 +38,9 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSo
 
         if (msg instanceof BinaryWebSocketFrame) {
             byte[] message = ByteBufUtil.getBytes(((BinaryWebSocketFrame) msg).content());
-            String s = new String(GzipUtils.decompress(message));
-            System.out.println(getTime() + " message ->" + s);
+            System.out.println(getTime() + " message ->" + new String(GzipUtils.decompress(message)));
         }
-//        TimeUnit.SECONDS.sleep(1000);
+        TimeUnit.SECONDS.sleep(30);
     }
 
     private String getTime() {
