@@ -4,14 +4,14 @@
     "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<!--数据库驱动 -->
-	<classPathEntry location="C:/work/apache-maven-3.3.9/repository/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar" />
+	<classPathEntry location="/Users/fanzhongxuan/.m2/repository/mysql/mysql-connector-java/8.0.17/mysql-connector-java-8.0.17.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3Simple">
 	<plugin type="com.wsss.frame.mybatis.generator.MyPlugin"></plugin>
 	<!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->        
-        <plugin type="com.wsss.frame.mybatis.generator.RenamePlugin">  
-            <property name="searchString" value="Mapper" />
-            <property name="replaceString" value="Dao" />
-        </plugin>  
+<!--        <plugin type="com.wsss.frame.mybatis.generator.RenamePlugin">  -->
+<!--            <property name="searchString" value="Mapper" />-->
+<!--            <property name="replaceString" value="Dao" />-->
+<!--        </plugin>  -->
 
 		<commentGenerator type="com.wsss.frame.mybatis.generator.CommentGenerator">
 			<property name="suppressDate" value="true" />
@@ -19,34 +19,34 @@
 		</commentGenerator>
 		<!--数据库链接地址账号密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://10.10.111.10:3306/financial?useUnicode=true&amp;characterEncoding=utf8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" 
-			userId="dpay"
-			password="dpay">
+			connectionURL="jdbc:mysql://exchange-byqian-cluster.cluster-cmvznimubfkb.ap-southeast-1.rds.amazonaws.com:3306/exchange?characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;useSSL=false"
+			userId="byqian"
+			password="1jkdmit1hyf29miup4ype2yoth7m1hhs">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!--生成Model类存放位置 -->
-		<javaModelGenerator targetPackage="com.unionpay.financial.model"
-			targetProject="src">
+		<javaModelGenerator targetPackage="com.superatomfin.einstein.account.entity"
+			targetProject="/Users/fanzhongxuan/IdeaProjects/study/study/src">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!--生成映射文件存放位置 -->
-		<sqlMapGenerator targetPackage="com.unionpay.financial.core.dao"
-			targetProject="src">
+		<sqlMapGenerator targetPackage="com.superatomfin.einstein.account.entity"
+			targetProject="/Users/fanzhongxuan/IdeaProjects/study/study/src">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!--生成Dao类存放位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.unionpay.financial.core.dao" targetProject="src">
+			targetPackage="com.superatomfin.einstein.account.entity" targetProject="/Users/fanzhongxuan/IdeaProjects/study/study/src">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
 		
 		
 		<!--生成对应表及类名 -->
-		<table tableName="auto_require_config_his" domainObjectName="AutoRequireConfigHis" >
+		<table tableName="account_type_info" domainObjectName="AccountTypeInfo" >
 		</table>
 		
 		

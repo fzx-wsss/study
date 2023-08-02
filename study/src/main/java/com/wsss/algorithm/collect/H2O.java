@@ -1,4 +1,4 @@
-package com.wsss.temp;
+package com.wsss.algorithm.collect;
 
 
 import java.util.Map;
