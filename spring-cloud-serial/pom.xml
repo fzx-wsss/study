@@ -13,7 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-
+	<properties>
+		<spring.version>5.1.9.RELEASE</spring.version>
+	</properties>
 	<dependencies>
 		<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -39,6 +41,19 @@
 			<groupId>javax.xml</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.28</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -79,6 +94,17 @@
 	</dependencyManagement>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.yml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -105,5 +131,6 @@
 		<module>spring-cloud-zuul</module>
 		<module>spring-boot-security</module>
 		<module>spring-security-oauth2</module>
-	</modules>
+        <module>spring-boot-quartz</module>
+    </modules>
 </project>

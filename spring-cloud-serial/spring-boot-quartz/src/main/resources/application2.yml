@@ -1,0 +1,73 @@
+server:
+  port: 9092
+  servlet:
+    context-path: /
+tomcat:
+  remote-ip-header: x-forward-for
+  uri-encoding: UTF-8
+  max-threads: 10
+  background-processor-delay: 30
+spring:
+  application:
+    name: quartz
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  dataSource:
+    url: jdbc:mysql://localhost:3306/my?characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&useSSL=true&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  hikari:
+    minimum-idle: 5
+    maximum-pool-size: 15
+    idle-timeout: 30000
+    pool-name: DatebookHikariCP
+    max-lifetime: 1800000
+    connection-timeout: 30000
+    connection-test-query: 'SELECT 1'
+
+quartz:
+  cronExpression: 0/5 * * * * ?
+logging:
+  level:
+    root: info
+    com:
+      superatomfin:
+        themis: info
+    io:
+      netty: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,prometheus,shutdown
+      base-path: /themis/actuator
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+        step: 1m
+        descriptions: true
+  server:
+    port: 18090
+  endpoint:
+    shutdown:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+apollo:
+  bootstrap:
+    eagerLoad:
+      enabled: true
+    enabled: true
