@@ -14,6 +14,7 @@ public class JettyServer {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
         ServerConnector connector = new ServerConnector(server);
+        connector.setIdleTimeout(100L);
         connector.setPort(8080);
         server.setConnectors(new Connector[]{connector});
 

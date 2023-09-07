@@ -1,6 +1,8 @@
 package com.wsss.frame.jetty.bitrue;
 
 import com.xxl.job.core.biz.model.TriggerParam;
+import com.xxl.rpc.remoting.invoker.XxlRpcInvokerFactory;
+import com.xxl.rpc.remoting.net.params.BaseCallback;
 import com.xxl.rpc.remoting.net.params.XxlRpcFutureResponseFactory;
 import com.xxl.rpc.remoting.net.params.XxlRpcRequest;
 import com.xxl.rpc.remoting.net.params.XxlRpcResponse;
@@ -15,7 +17,9 @@ import org.eclipse.jetty.client.util.BufferingResponseListener;
 import org.eclipse.jetty.client.util.BytesContentProvider;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,14 +27,39 @@ import java.util.concurrent.TimeUnit;
 
 public class JettyClient {
     private static HessianSerializer serializer = new HessianSerializer();
+    private static HttpClient jettyHttpClient;
+    public synchronized static HttpClient getJettyHttpClient() throws Exception {
+        if (jettyHttpClient != null) {
+            return jettyHttpClient;
+        }
+
+        // init jettp httpclient
+        jettyHttpClient = new HttpClient();
+        jettyHttpClient.setFollowRedirects(false);	                // avoid redirect-302
+        jettyHttpClient.setExecutor(new QueuedThreadPool());		// default maxThreads 200, minThreads 8
+        jettyHttpClient.setMaxConnectionsPerDestination(10000);	    // limit conn per desc
+        jettyHttpClient.start();						            // start
+
+        // stop callback
+        XxlRpcInvokerFactory.addStopCallBack(new BaseCallback() {
+            @Override
+            public void run() throws Exception {
+                if (jettyHttpClient != null) {
+                    jettyHttpClient.stop();
+                    jettyHttpClient = null;
+                }
+            }
+        });
+
+        return jettyHttpClient;
+    }
     public static void main(String[] args) throws Exception {
-        HttpClient httpClient = new HttpClient();
+        HttpClient httpClient = getJettyHttpClient();
         httpClient.start();
 
         for (int i =0;i<10000;i++) {
-            TimeUnit.MILLISECONDS.sleep(10);
             XxlRpcRequest xxlRpcRequest = buildRequest();
-            Request request = httpClient.newRequest("http://10.48.2.64:9977");
+            Request request = httpClient.newRequest("http://10.48.1.125:18989");
             request.method(HttpMethod.POST);
             request.timeout(10, TimeUnit.SECONDS);		// async, not need timeout
             request.content(new BytesContentProvider(serializer.serialize(xxlRpcRequest)));
@@ -51,12 +80,13 @@ public class JettyClient {
 
                         // deserialize response
                         XxlRpcResponse xxlRpcResponse = (XxlRpcResponse) serializer.deserialize(responseBytes, XxlRpcResponse.class);
-                        System.out.println(xxlRpcResponse);
+                        System.out.println(new Date().toString() + "   " + xxlRpcResponse);
                     } catch (Exception e){
                         throw e;
                     }
                 }
             });
+            TimeUnit.SECONDS.sleep(30);
         }
 
 
