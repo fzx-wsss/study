@@ -7,6 +7,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 @Slf4j
+@DisallowConcurrentExecution
 public class ButtonTimerJob implements Job {
 
 /**

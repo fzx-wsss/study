@@ -10,12 +10,12 @@ import java.util.List;
 public class JacksonTest {
     public static void main(String[] args) throws Exception {
         ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-//        SimpleModule simpleModule = new SimpleModule();
-//        simpleModule.addDeserializer(Object.class,new DemoDeserializer());
-//        simpleModule.addKeyDeserializer(Object.class,new DemoKeyDeserializer());
-////        simpleModule.addSerializer(Object.class,new DemoSerializer());
-////        simpleModule.addKeySerializer(Object.class,new DemoSerializer());
-//        OBJECT_MAPPER.registerModule(simpleModule);
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addDeserializer(Object.class,new DemoDeserializer());
+        simpleModule.addKeyDeserializer(Object.class,new DemoKeyDeserializer());
+//        simpleModule.addSerializer(Object.class,new DemoSerializer());
+//        simpleModule.addKeySerializer(Object.class,new DemoSerializer());
+        OBJECT_MAPPER.registerModule(simpleModule);
         OBJECT_MAPPER.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         List<Demo> list = new ArrayList<>();
         Demo demo = new Demo();
