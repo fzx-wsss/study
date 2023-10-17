@@ -18,6 +18,8 @@ public class TestAllocation {
         //-XX:-DoEscapeAnalysis
         // 虚拟机关闭标量替换
         // -XX:-EliminateAllocations
+        TimeContext one = null;
+        TimeContext[] old = new TimeContext[1];
         List<TimeContext> depthQueue = new ArrayList<>(1);
 //        Thread t = new Thread(()->{
 //            while (true) {
@@ -33,10 +35,12 @@ public class TestAllocation {
         long start = System.currentTimeMillis();
         for(int i=0;i<100000000;i++) {
             TimeContext context = TimeContext.timer("123");
-            // 放入集合中则不会再进行标量替换
+            one = context;
+            // 以下操作不会再进行标量替换
 //            depthQueue.add(context);
 //            depthQueue.remove(context);
-            Arrays.asList(context);
+//            Arrays.asList(context);
+//            old[0] = context;
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start);
