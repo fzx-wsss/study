@@ -28,11 +28,11 @@ public class WSClient {
     public static void main(String[] args) throws Exception {
         try {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
-            URI websocketURI = new URI("wss://ws.bitrue.com/kline-api/ws");
-//            URI websocketURI = new URI("wss://ws.byqian.com/etf/ws");
+//            URI websocketURI = new URI("wss://ws.bitrue.com/kline-api/ws");
+//            URI websocketURI = new URI("wss://ws.byqian.com/kline-api/ws");
 //            URI websocketURI = new URI("ws://127.0.0.1:12345/etf/ws");
 //            URI websocketURI = new URI("ws://a682264b60c1146e48df0d5015cb6cc2-1099915016.ap-southeast-1.elb.amazonaws.com:12345/kline-api/ws");
-//            URI websocketURI = new URI("wss://ws-byqiantest-n.byqian.com:443/kline-api/ws");
+            URI websocketURI = new URI("wss://ws-byqiantest-n.byqian.com:443/kline-api/ws");
 //            URI websocketURI = new URI("ws://3.0.135.116:8888/stream?listenKey=598e55b97a78de9b7f962d1587d72bae57bb734d0df77c41ab45cf98a0227e0e");
             //netty基本操作，线程组
             EventLoopGroup group = new NioEventLoopGroup(10);
@@ -89,7 +89,7 @@ public class WSClient {
 
     public static void sengSub(Channel channel,String symbol) {
         //发送的内容，是一个文本格式的内容
-        String putMessage = "{\"event\":\"sub\",\"params\":{\"cb_id\":\""+symbol+"\",\"channel\":\"market_"+symbol+"_trade_ticker\"}}";
+        String putMessage = "{\"event\":\"sub\",\"params\":{\"cb_id\":\""+symbol+"\",\"channel\":\"market_"+symbol+"_depth_step0\"}}";
 //        String putMessage = "{\"event\":\"sub\",\"params\":{\"channel\":\"user_order_update\"}}";
         TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
         channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {

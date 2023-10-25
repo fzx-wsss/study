@@ -40,8 +40,8 @@ public class WSServer {
                             pipeline.addLast("http-aggregator", new HttpObjectAggregator(131072, true));
 
                             pipeline.addLast(new ChunkedWriteHandler());
-                            pipeline.addLast(new AccessHandler());
-                            pipeline.addLast("WebSocket-protocol", new WebSocketServerProtocolHandler("/test/api"));
+//                            pipeline.addLast(new AccessHandler());
+                            pipeline.addLast("WebSocket-protocol", new WebSocketServerProtocolHandler("/test/api", true));
 
                             pipeline.addLast(executors,new TextWebSocketFrameHandler());
                             pipeline.addLast(executors,new AllMsgHandler());

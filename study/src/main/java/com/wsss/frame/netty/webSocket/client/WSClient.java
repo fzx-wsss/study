@@ -21,7 +21,7 @@ public class WSClient {
     public static void main(String[] args) throws Exception {
         try {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
-            URI websocketURI = new URI("wss://127.0.0.1:12345/test/api");
+            URI websocketURI = new URI("wss://127.0.0.1:12345/test/api?params=1&params2=2");
             //netty基本操作，线程组
             EventLoopGroup group = new NioEventLoopGroup();
             //netty基本操作，启动类

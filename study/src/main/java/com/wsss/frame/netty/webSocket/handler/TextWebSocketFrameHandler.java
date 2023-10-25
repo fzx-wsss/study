@@ -44,6 +44,16 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSo
 //        TimeUnit.SECONDS.sleep(1000);
     }
 
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        System.out.println(evt);
+        if(evt instanceof WebSocketServerProtocolHandler.HandshakeComplete){
+            WebSocketServerProtocolHandler.HandshakeComplete complete = (WebSocketServerProtocolHandler.HandshakeComplete)evt;
+            System.out.println(complete.requestUri());
+        }
+        super.userEventTriggered(ctx, evt);
+    }
+
     private String getTime() {
         return sbf.format(new Date());
     }
