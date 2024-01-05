@@ -17,6 +17,11 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.68</version> <!-- 请检查最新版本 -->
+		</dependency>
+		<dependency>
 			<groupId>org.roaringbitmap</groupId>
 			<artifactId>RoaringBitmap</artifactId>
 			<version>1.0.0</version>
@@ -78,6 +83,12 @@
 			<groupId>org.hyperledger.fabric-sdk-java</groupId>
 			<artifactId>fabric-sdk-java</artifactId>
 			<version>1.2.2</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcprov-jdk15on</artifactId>
+					<groupId>org.bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>org.javassist</groupId>
@@ -109,7 +120,11 @@
             		<groupId>xml-apis</groupId>
             		<artifactId>xml-apis</artifactId>
             	</exclusion>
-            </exclusions>
+				<exclusion>
+					<artifactId>bcprov-jdk15on</artifactId>
+					<groupId>org.bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
         <dependency>
             <groupId>org.apache.jmeter</groupId>
@@ -136,7 +151,11 @@
             		<groupId>xml-apis</groupId>
             		<artifactId>xml-apis</artifactId>
             	</exclusion>
-            </exclusions>
+				<exclusion>
+					<artifactId>bcprov-jdk15on</artifactId>
+					<groupId>org.bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
         </dependency>
 		<dependency>
 	       <groupId>com.netflix.hystrix</groupId>

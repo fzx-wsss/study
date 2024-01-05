@@ -1,8 +1,10 @@
 package com.wsss.frame.jctools;
 
+import org.eclipse.jetty.util.BlockingArrayQueue;
 import org.jctools.queues.SpscArrayQueue;
 
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
 public class SpscArrayQueueTest {
@@ -10,8 +12,9 @@ public class SpscArrayQueueTest {
         // 定义队列容量
         final int capacity = 1000000;
         // 创建SpscArrayQueue
-        Queue<Integer> queue = new SpscArrayQueue<>(10000);
+        Queue<Integer> queue = new SpscArrayQueue<>(100000);
 //        Queue<Integer> queue = new BlockingArrayQueue<>(10000);
+//        Queue<Integer> queue = new ConcurrentLinkedQueue<>();
 
         // 生产者线程
         Thread producer = new Thread(() -> {
