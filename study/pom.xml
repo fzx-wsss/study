@@ -17,6 +17,12 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.4.2</version> <!-- 使用最新版本 -->
+		</dependency>
+
+		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.68</version> <!-- 请检查最新版本 -->
