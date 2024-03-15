@@ -15,6 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class LoadCacheTest {
+
     public static void main(String[] args) throws Exception {
         LoadingCache<String, String> asynCache = CacheBuilder.newBuilder()
                 //note：如这里使用了expireAfterWrite,那么如果在异步刷新返回结果前数据过期，依旧会在加载数据的阻塞get方法

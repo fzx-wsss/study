@@ -1,0 +1,2 @@
+masterFilter=com.wsss.DubboMasterFilter
+clientFilter=com.wsss.DubboClientFilter

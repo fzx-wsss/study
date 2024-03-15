@@ -13,7 +13,7 @@ public class Provider {
 		ApplicationConfig applicationConfig = new ApplicationConfig();
 		applicationConfig.setName("accountInTest");
 		RegistryConfig registry = new RegistryConfig();
-		registry.setAddress("zookeeper://10.48.1.124:2181");
+		registry.setAddress("zookeeper://127.0.0.1:2181");
 		ServiceConfig<DemoService> reference = new ServiceConfig<>();
 
 		reference.setApplication(applicationConfig);
@@ -21,6 +21,7 @@ public class Provider {
 		reference.setRef(new DemoServiceImpl());
 		reference.setTimeout(30000);
 		reference.setRegistry(registry);
+		reference.setFilter("masterFilter");
 		reference.export();
 		System.out.println("start");
 		System.in.read();

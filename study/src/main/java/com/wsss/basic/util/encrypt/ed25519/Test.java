@@ -18,7 +18,7 @@ public class Test {
         String pubK = "a1786ff4e3de5559357c61732423f387084db268fe9c5a85c5f8eb1a0ffb434c";
         String priK = "c1326888dd2cefd48ea9476c16fc6876ecb07ab21c4369136a7344a6f8f13025";
         try {
-            String txt = "bake3susdt10000000";
+            String txt = "eth3lusdt10";
             // 私钥签名
             System.out.println(txt);
             byte[] data1 = Signer.signWithHexKey(txt.getBytes(),priK);
