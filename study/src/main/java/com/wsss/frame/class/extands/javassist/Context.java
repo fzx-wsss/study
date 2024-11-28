@@ -1,4 +1,4 @@
-package com.wsss.frame.javassist;
+package com.wsss.frame;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

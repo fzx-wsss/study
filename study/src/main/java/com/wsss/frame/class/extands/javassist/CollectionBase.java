@@ -1,4 +1,4 @@
-package com.wsss.frame.javassist;
+package com.wsss.frame;
 
 
 public class CollectionBase<T> {
