@@ -3,12 +3,15 @@ package com.wsss.frame.netty.webSocket.client;
 import com.wsss.frame.netty.webSocket.handler.TextWebSocketFrameHandler;
 import com.wsss.frame.netty.webSocket.handler.WebSocketClientHandler;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -47,9 +50,9 @@ public class WSClient {
             WebSocketClientHandler.handshakeFuture.sync();
             System.out.println("握手成功");
             //给服务端发送的内容，如果客户端与服务端连接成功后，可以多次掉用这个方法发送消息
-            for(int i =0 ;i< 100;i++) {
+            for(int i =0 ;i< 1;i++) {
                 sengMessage(channel);
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(10);
             }
 
         } catch (Exception e) {
@@ -59,16 +62,19 @@ public class WSClient {
 
     public static void sengMessage(Channel channel) {
         //发送的内容，是一个文本格式的内容
-        String putMessage = "{\"event\":\"req\",\"params\":{\"cb_id\":\"adausdt\",\"channel\":\"market_adausdt_trade_ticker\",\"top\":20}}";
-        TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
-        channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
-            public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                if (channelFuture.isSuccess()) {
-                    System.out.println("消息发送成功，发送的消息是：" + putMessage);
-                } else {
-                    System.out.println("消息发送失败 " + channelFuture.cause().getMessage());
-                }
-            }
-        });
+//        String putMessage = "{\"event\":\"req\",\"params\":{\"cb_id\":\"adausdt\",\"channel\":\"market_adausdt_trade_ticker\",\"top\":20}}";
+//        TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
+//        channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
+//            public void operationComplete(ChannelFuture channelFuture) throws Exception {
+//                if (channelFuture.isSuccess()) {
+//                    System.out.println("消息发送成功，发送的消息是：" + putMessage);
+//                } else {
+//                    System.out.println("消息发送失败 " + channelFuture.cause().getMessage());
+//                }
+//            }
+//        });
+
+        channel.writeAndFlush(new PingWebSocketFrame(Unpooled.EMPTY_BUFFER));
+        channel.writeAndFlush(new PongWebSocketFrame(Unpooled.EMPTY_BUFFER));
     }
 }

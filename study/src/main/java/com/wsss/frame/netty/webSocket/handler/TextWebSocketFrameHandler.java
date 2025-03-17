@@ -26,27 +26,27 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<WebSo
             incoming.close();
         }
 
-        if (msg instanceof PongWebSocketFrame) {
-            String message = msg.copy().toString();
-            System.out.println("Client:" + incoming.remoteAddress() + " message ->" + message);
+        if (msg instanceof PongWebSocketFrame || msg instanceof PingWebSocketFrame) {
+//            String message = msg.copy().toString();
+            System.out.println("Client:" + incoming.remoteAddress() + " message ->" + msg.getClass());
         }
 
         if (msg instanceof TextWebSocketFrame) {
             String message = ((TextWebSocketFrame) msg).text();
-            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + " message ->" + message);
+            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + "Text message ->" + message);
         }
 
         if (msg instanceof BinaryWebSocketFrame) {
             byte[] message = ByteBufUtil.getBytes(((BinaryWebSocketFrame) msg).content());
             String s = new String(GzipUtils.decompress(message));
-            System.out.println(getTime() + " message ->" + s);
+            System.out.println(getTime() + "Binary message ->" + s);
         }
 //        TimeUnit.SECONDS.sleep(1000);
     }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        System.out.println(evt);
+        System.out.println("user event:"+ evt);
         if(evt instanceof WebSocketServerProtocolHandler.HandshakeComplete){
             WebSocketServerProtocolHandler.HandshakeComplete complete = (WebSocketServerProtocolHandler.HandshakeComplete)evt;
             System.out.println(complete.requestUri());

@@ -10,7 +10,6 @@ import java.util.UUID;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
-import org.apache.dubbo.config.utils.ReferenceConfigCache;
 import org.apache.dubbo.rpc.service.GenericService;
 
 public class GenericConsumer {
@@ -57,8 +56,8 @@ public class GenericConsumer {
         //API方式编程时，容易忽略此问题。
         //这里使用dubbo内置的简单缓存工具类进行缓存
         
-        ReferenceConfigCache cache = ReferenceConfigCache.getCache();
-        GenericService genericService = cache.get(reference); 
+//        ReferenceConfigCache cache = ReferenceConfigCache.getCache();
+        GenericService genericService = null;//;
         // 用com.alibaba.dubbo.rpc.service.GenericService可以替代所有接口引用 
 
 //        String[] invokeParamTyeps = new String[parameters.length];

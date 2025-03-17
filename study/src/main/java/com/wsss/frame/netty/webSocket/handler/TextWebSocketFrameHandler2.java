@@ -33,14 +33,13 @@ public class TextWebSocketFrameHandler2 extends SimpleChannelInboundHandler<WebS
 
         if (msg instanceof TextWebSocketFrame) {
             String message = ((TextWebSocketFrame) msg).text();
-            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + " message ->" + message);
+            System.out.println(getTime() + "Client:" + incoming.remoteAddress() + "Text message ->" + message);
         }
 
         if (msg instanceof BinaryWebSocketFrame) {
             byte[] message = ByteBufUtil.getBytes(((BinaryWebSocketFrame) msg).content());
-            System.out.println(getTime() + " message ->" + new String(GzipUtils.decompress(message)));
+            System.out.println(getTime() + "Binary message ->" + new String(GzipUtils.decompress(message)));
         }
-        TimeUnit.SECONDS.sleep(30);
     }
 
     private String getTime() {

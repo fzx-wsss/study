@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
+import com.wsss.frame.disruptor.base.MyData;
 import com.wsss.frame.disruptor.base.MyEvent;
 import com.wsss.frame.disruptor.base.MyEventFactory;
 import com.wsss.frame.disruptor.base.MyEventHandler;
@@ -27,15 +28,15 @@ public class Worker3 {
     }
 
     public void produce(int i) {
-        queue.publishEvent((event, sequence) -> event.init("task" + i, sequence));
+        queue.publishEvent((event, sequence) -> event.init(new MyData(i), sequence));
     }
 
 
     public static void main(String[] args) throws Exception {
         Worker3 worker = new Worker3(1);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100000; i++) {
             worker.produce(i);
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.MILLISECONDS.sleep(1);
         }
 
         TimeUnit.MINUTES.sleep(100);

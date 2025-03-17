@@ -8,7 +8,7 @@ public class MyEventHandler implements EventHandler<MyEvent> {
     @Override
     public void onEvent(MyEvent event, long sequence, boolean endOfBatch) throws Exception {
         // 处理事件的逻辑
-        System.out.println(Thread.currentThread().getName() + " Handling event: " + event.getEventData() +" endOfBatch:"+ endOfBatch);
-        TimeUnit.SECONDS.sleep(1);
+        event.setEventData(null);
+//        System.out.println(Thread.currentThread().getName() + " Handling event: " + event.getEventData() +" endOfBatch:"+ endOfBatch);
     }
 }

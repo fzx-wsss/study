@@ -4,10 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.wsss.frame.disruptor.base.MyEvent;
-import com.wsss.frame.disruptor.base.MyEventFactory;
-import com.wsss.frame.disruptor.base.MyEventHandler;
-import com.wsss.frame.disruptor.base.MyWorkHandler;
+import com.wsss.frame.disruptor.base.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +24,7 @@ public class Worker {
     }
 
     public void produce(int i) {
-        queue.publishEvent((event, sequence) -> event.init("task" + i, sequence));
+        queue.publishEvent((event, sequence) -> event.init(new MyData(i), sequence));
     }
 
 

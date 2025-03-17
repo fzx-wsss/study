@@ -4,6 +4,7 @@ import io.netty.channel.*;
 import io.netty.handler.codec.http.CombinedHttpHeaders;
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshakerFactory;
 import io.netty.handler.codec.http.websocketx.WebSocketHandshakeException;
@@ -23,6 +24,18 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<FullHttp
         try {
             this.handshaker = WebSocketClientHandshakerFactory.newHandshaker(
                     uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders(false),655360);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public WebSocketClientHandler(URI uri, String listenKey) {
+        try {
+            DefaultHttpHeaders headers = new DefaultHttpHeaders(false);
+            headers.add("listenKey",listenKey);
+            this.handshaker = WebSocketClientHandshakerFactory.newHandshaker(
+                    uri, WebSocketVersion.V13, null, true, headers,655360);
         } catch (Exception e) {
             e.printStackTrace();
         }

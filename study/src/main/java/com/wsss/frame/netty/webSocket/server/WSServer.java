@@ -2,6 +2,7 @@ package com.wsss.frame.netty.webSocket.server;
 
 import com.wsss.frame.netty.webSocket.handler.AccessHandler;
 import com.wsss.frame.netty.webSocket.handler.AllMsgHandler;
+import com.wsss.frame.netty.webSocket.handler.CustomWebSocketServerProtocolHandler;
 import com.wsss.frame.netty.webSocket.handler.TextWebSocketFrameHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -41,7 +42,7 @@ public class WSServer {
 
                             pipeline.addLast(new ChunkedWriteHandler());
 //                            pipeline.addLast(new AccessHandler());
-                            pipeline.addLast("WebSocket-protocol", new WebSocketServerProtocolHandler("/test/api", true));
+                            pipeline.addLast("WebSocket-protocol", new CustomWebSocketServerProtocolHandler("/test/api", true));
 
                             pipeline.addLast(executors,new TextWebSocketFrameHandler());
                             pipeline.addLast(executors,new AllMsgHandler());
