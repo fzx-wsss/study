@@ -1,6 +1,8 @@
 package com.wsss.basic.util.encrypt.rsa;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -12,12 +14,14 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.Cipher;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
+import org.apache.poi.util.SystemOutLogger;
 
 /**
  * @author qichenchen
@@ -230,7 +234,7 @@ public class RsaCoder {
 		PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(privateKey);
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
 		Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
-		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.DECRYPT_MODE, privateK);
 		byte[] decryptedData = rsaCipherDoFinal(cipher, encryptedData, MAX_DECRYPT_BLOCK);
 		return decryptedData;
@@ -264,7 +268,7 @@ public class RsaCoder {
 		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKey);
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
 		Key publicK = keyFactory.generatePublic(x509KeySpec);
-		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.DECRYPT_MODE, publicK);
 		byte[] decryptedData = rsaCipherDoFinal(cipher, encryptedData, MAX_DECRYPT_BLOCK);
 		return decryptedData;
@@ -301,7 +305,7 @@ public class RsaCoder {
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
 		Key publicK = keyFactory.generatePublic(x509KeySpec);
 		// 对数据加密
-		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.ENCRYPT_MODE, publicK);
 		byte[] encryptedData = rsaCipherDoFinal(cipher, data, MAX_ENCRYPT_BLOCK);
 		return encryptedData;
@@ -338,7 +342,7 @@ public class RsaCoder {
 		PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(privateKey);
 		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
 		Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
-		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.ENCRYPT_MODE, privateK);
 		byte[] encryptedData = rsaCipherDoFinal(cipher, data, MAX_ENCRYPT_BLOCK);
 		return encryptedData;
@@ -381,17 +385,20 @@ public class RsaCoder {
 		return encryptedData;
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main2(String[] args) throws Exception {
+
 		Map<String, Object> initKey = RsaCoder.initKey();
 		// String publicKey = RsaCoder.getPublicKey(initKey);
-		String publicKey = "305C300D06092A864886F70D0101010500034B003048024100CADAE080413B2C45BB72DAD3431CF98225239D3BC7BCB0C56F4DD39030A0ACCD1AC5FD4A3107178F6EE60F6C5162E32AD3735E91D4FBEB459E28D970A907301F0203010001";
+		String publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALglzk0MKlvggvLl150UZCMictCM9JS+ix65lcbVbVBZU0JfKEl/KjUfe1ohScR0eFFDvgKrDp6J0hDS9xGMPFECAwEAAQ==";
 		System.out.println("公钥：" + publicKey);
-		String privateKey = RsaCoder.getPrivateKey(initKey);
+//		String privateKey = RsaCoder.getPrivateKey(initKey);
+		String privateKey = "MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAuCXOTQwqW+CC8uXXnRRkIyJy0Iz0lL6LHrmVxtVtUFlTQl8oSX8qNR97WiFJxHR4UUO+AqsOnonSENL3EYw8UQIDAQABAkAfEMGs3dCHj2iH8Z5eMYJzKuyTojPgpAR0Onq6AGdglmfVNgiXGR0suC6OWou12hLKBOhrty50HXXc11p3Z50BAiEA4cF75xg3e2zYLw1DcsNAa4AHk6bj9JiUFtMDJRs6vG0CIQDQ0VSr9NpK/SH9PLmrpk1ptmHlzkO3lcy/ctrD6ayI9QIgCrkvEn4S/Jjh9/IwVv4xTCnrsjbGMzMgLaleR9/wPU0CIQCslWYKnNrSAXZXCxpVcKQoi7FLsncrQyau0GlYZEfSBQIhAMjkpq7zTV37kZC4/t94tmNzT85/NaFqXCuw5nQs2dKw";
 		System.out.println("私钥：" + privateKey);
 
-		String content = "{\"phoneNo\":\"18518679659\",\"smsCode\":\"123456\",\"loginType\":\"phone\"}";
+		String content = "华股份\"},\"600828.SH\":{\"preClose\":3.59,\"high\":3.95,1";
 		// RSA公钥加密
-		String newContent = RsaCoder.encryptByPublicKey(content, publicKey);
+		String newContent = HexBin.encode(RsaCoder.encryptByPublicKey(content.getBytes(StandardCharsets.UTF_8)
+				, Base64.getDecoder().decode(publicKey)));
 		System.out.println(newContent);
 		// RSA私钥解密
 		// String new2Content = RsaCoder.decryptByPrivateKey(newContent,
@@ -400,11 +407,17 @@ public class RsaCoder {
 
 		String content2 = "17606760989";
 		// RSA私钥加密
-		String newContent2 = RsaCoder.encryptByPrivateKey(content2, privateKey);
+		String newContent2 = new String(RsaCoder.decryptByPrivateKey(HexBin.decode(newContent)
+				, Base64.getDecoder().decode(privateKey)));
 		System.out.println(newContent2);
 		// RSA公钥解密
 		// String new2Content2 = RsaCoder.decryptByPublicKey(newContent2,
 		// publicKey);
 		// System.out.println(new2Content2);
+	}
+
+	public static void main(String[] args) {
+		String dex = "6f77223a32302e392c226368616e6765526174696f223a31392e39383131303533342c226c6174657374223a32352e342c22616d6f756e74223a322e38343634303645382c22766f6c756d65223a312e313931333245372c226f70656e223a32312e32312c226e616d65223a22e5a4a9e58583e5ae";
+		System.out.println(new String(HexBin.decode(dex), Charset.forName("utf-8")));
 	}
 }

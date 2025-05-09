@@ -1,2 +1,3 @@
 masterFilter=com.wsss.DubboMasterFilter
 clientFilter=com.wsss.DubboClientFilter
+myfilter=com.wsss.GenericFilter

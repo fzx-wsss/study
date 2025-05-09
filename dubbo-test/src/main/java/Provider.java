@@ -21,7 +21,7 @@ public class Provider {
 		reference.setRef(new DemoServiceImpl());
 		reference.setTimeout(30000);
 		reference.setRegistry(registry);
-		reference.setFilter("masterFilter");
+//		reference.setFilter("masterFilter");
 		reference.export();
 		System.out.println("start");
 		System.in.read();

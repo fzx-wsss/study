@@ -16,7 +16,7 @@ public class Consumer {
 		ApplicationConfig applicationConfig = new ApplicationConfig();
 		applicationConfig.setName("accountInTest");
 		RegistryConfig registry = new RegistryConfig();
-		registry.setAddress("zookeeper://10.48.1.131:2181");
+		registry.setAddress("zookeeper://127.0.0.1:2181");
 
 		ReferenceConfig<FollowOrderQueryService> reference = new ReferenceConfig<>();
 		reference.setApplication(applicationConfig);

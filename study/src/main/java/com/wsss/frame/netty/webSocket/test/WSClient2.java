@@ -37,7 +37,7 @@ public class WSClient2 {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
 //            URI websocketURI = new URI("wss://ws.byqian.com/etf/ws");
 //            URI websocketURI = new URI("wss://ws.byqian.com/kline-api/ws");
-            URI websocketURI = new URI("ws://127.0.0.1:12345/stream/ws");
+            URI websocketURI = new URI("wss://www.bjljsc.com/infra/ws?token=249648023a1e414ba251614002ce8161");
 //            URI websocketURI = new URI("ws://10.48.1.18:12345/etf/ws");
             //netty基本操作，线程组
             EventLoopGroup group = new NioEventLoopGroup();
@@ -66,7 +66,7 @@ public class WSClient2 {
 
             //进行握手
             //客户端与服务端连接的通道，final修饰表示只会有一个
-            final Channel channel = boot.connect(websocketURI.getHost(), 12345).sync().channel();
+            final Channel channel = boot.connect(websocketURI.getHost(), 443).sync().channel();
             //阻塞等待是否握手成功
             System.out.println("连接成功");
             WebSocketClientHandler.handshakeFuture.sync();

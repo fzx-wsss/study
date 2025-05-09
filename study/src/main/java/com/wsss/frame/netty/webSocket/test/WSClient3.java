@@ -57,7 +57,7 @@ public class WSClient3 {
                             pipeline.addLast("aggregator", new HttpObjectAggregator(1024 * 1024 * 10));
                             pipeline.addLast(new ChunkedWriteHandler());
                             pipeline.addLast("compressionHandler", WebSocketClientCompressionHandler.INSTANCE);
-                            pipeline.addLast("hookedHandler", new WebSocketClientHandler(websocketURI));
+                            pipeline.addLast("hookedHandler", new WebSocketClientHandler(websocketURI,"720e78855d49596fe70c818a7939bdef0199c7cf21b4579a8df39e8b40bd651c"));
                             pipeline.addLast("textHandler", new TextWebSocketFrameHandler());
                             pipeline.addLast("allHandler",new AllMsgHandler());
                         }
@@ -87,7 +87,7 @@ public class WSClient3 {
 
     public static void sengSub(Channel channel,String symbol) {
         //发送的内容，是一个文本格式的内容
-        String putMessage = "{\"event\":\"SUBSCRIBE\",\"id\":\"123\",\"params\":[{\"token\":\"AvRiG4buyV8bRsmwSK5hxfuEc62Pxj1nJAHxxvUwpump\",\"type\":\"signal\",\"scale\":\"1w\"}]}";
+        String putMessage = "{\"event\":\"SUBSCRIBE\",\"id\":\"123\",\"params\":[{\"chain\":\"sol\",\"type\":\"token_info\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"scene\":\"detail_real\"}]}";
 //        String putMessage = "{\"event\":\"sub\",\"params\":{\"channel\":\"user_order_update\"}}";
         TextWebSocketFrame msg = new TextWebSocketFrame(putMessage);
         channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {

@@ -94,6 +94,7 @@ public class DiskIOTest {
         File tempFile = File.createTempFile("test", null);
         byte[] tempArray = new byte[BLOCK_SIZE];
         Random rand = new Random();
+        rand.nextBytes(tempArray);
 
         for (int loop = 0; loop < TEST_LOOPS; loop++) {
             try (FileChannel channel = new RandomAccessFile(tempFile, "rw").getChannel()) {
@@ -101,7 +102,6 @@ public class DiskIOTest {
 
                 for (int i = 0; i < TOTAL_BLOCKS; i++) {
                     buffer.clear();
-                    rand.nextBytes(tempArray);
                     buffer.put(tempArray);
                     buffer.flip();
 
@@ -111,10 +111,10 @@ public class DiskIOTest {
                         long position = rand.nextInt(TOTAL_BLOCKS) * (long) BLOCK_SIZE;
                         channel.write(buffer, position);
                     }
+                    channel.force(false);
                 }
                 totalTime += System.nanoTime() - start;
             }
-            tempFile.delete();
         }
         return calculateThroughput(FILE_SIZE_MB * TEST_LOOPS, totalTime);
     }
@@ -137,7 +137,7 @@ public class DiskIOTest {
                         long position = rand.nextInt(TOTAL_BLOCKS) * (long) BLOCK_SIZE;
                         channel.read(buffer, position);
                     }
-                    buffer.rewind(); // 模拟数据消费
+//                    buffer.rewind(); // 模拟数据消费
                 }
                 totalTime += System.nanoTime() - start;
             }

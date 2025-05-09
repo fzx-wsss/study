@@ -3,7 +3,7 @@ package com.wsss;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.*;
 
-@Activate(group = {"provider"})
+//@Activate(group = {"provider"})
 public class DubboMasterFilter implements Filter, Filter.Listener {
 
     @Override

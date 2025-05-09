@@ -12,6 +12,16 @@ public class DemoServiceImpl implements DemoService {
 		return "Hello " + name;
 	}
 
+	@Override
+	public User create(User user) {
+		System.out.println(user.toString());
+		User user2 = new User();
+		user2.setAge(1);
+		user2.setName("1");
+		user2.setSex("man");
+		return user2;
+	}
+
 	public List getUsers() {
 		List list = new ArrayList();
 		User u1 = new User();

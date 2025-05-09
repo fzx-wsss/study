@@ -71,7 +71,7 @@ public abstract class RsaUtils {
 			X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			Key publicK = keyFactory.generatePublic(x509KeySpec);
-			Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.ENCRYPT_MODE, publicK);
 			int inputLen = data.length;
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -125,7 +125,7 @@ public abstract class RsaUtils {
 			X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			Key publicK = keyFactory.generatePublic(x509KeySpec);
-			Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.DECRYPT_MODE, publicK);
 			int inputLen = encryptedData.length;
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -179,7 +179,7 @@ public abstract class RsaUtils {
 			PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
-			Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.ENCRYPT_MODE, privateK);
 			int inputLen = data.length;
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -232,7 +232,7 @@ public abstract class RsaUtils {
 			PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
-			Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.DECRYPT_MODE, privateK);
 			int inputLen = encryptedData.length;
 			ByteArrayOutputStream out = new ByteArrayOutputStream();

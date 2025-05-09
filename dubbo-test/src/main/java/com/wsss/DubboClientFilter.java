@@ -3,7 +3,7 @@ package com.wsss;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.*;
 
-@Activate(group = {"consumer"})
+//@Activate(group = {"consumer"})
 public class DubboClientFilter implements Filter {
 
     @Override
