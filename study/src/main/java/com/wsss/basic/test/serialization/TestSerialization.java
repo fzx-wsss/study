@@ -1,13 +1,8 @@
 package com.wsss.basic.test.serialization;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 
-import com.wsss.basic.test.model.CenterInfo;
-import com.wsss.basic.util.memcached.MemcacheUtil;
-import com.wsss.basic.util.redis.RedisUtils;
 import com.wsss.basic.util.serialize.ObjectSerializeUtil;
 
 public class TestSerialization {
