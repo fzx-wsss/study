@@ -1,4 +1,4 @@
-package com.superatomfin.tesla.service.dubbo;
+package com.wsss.basic.util.encrypt.aes;
 
 import org.bouncycastle.util.encoders.Hex;
 
@@ -27,7 +27,7 @@ public class NavicatPasswordDecryptor {
     }
 
     public static void main(String[] args) throws Exception {
-        String encryptedPassword = "833E4ABBC56C89041A9070F043641E3B"; // 替换为实际密文
+        String encryptedPassword = "B536E8BC09B27BD7CF9EB31559A9D5B061FB5ECE6D52E61324A19F399BE1AE3A"; // 替换为实际密文
         System.out.println("解密结果: " + decrypt(encryptedPassword));
     }
 }

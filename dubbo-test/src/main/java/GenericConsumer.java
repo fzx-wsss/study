@@ -65,7 +65,7 @@ public class GenericConsumer {
         ReferenceConfigCache cache = ReferenceConfigCache.getCache();
         GenericService genericService = cache.get(reference);//;
         // 用com.alibaba.dubbo.rpc.service.GenericService可以替代所有接口引用 
-            RpcContext.getContext().set(GENERIC_KEY,GENERIC_SERIALIZATION_GSON);
+//            RpcContext.getContext().set(GENERIC_KEY,GENERIC_SERIALIZATION_GSON);
 //        String[] invokeParamTyeps = new String[parameters.length];
 //        for(int i = 0; i < parameters.entrySet(); i++){
 //            invokeParamTyeps[i] = parameters[i].getClass().getTypeName();

@@ -31,9 +31,9 @@ public class WSClient {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
 //            URI websocketURI = new URI("wss://ws.bitrue.com/etf/ws");
 //            URI websocketURI = new URI("wss://stream.binance.com:443/stream");
-            URI websocketURI = new URI("ws://10.48.1.18:12345/etf/ws");
+//            URI websocketURI = new URI("ws://10.48.1.18:12345/etf/ws");
 //            URI websocketURI = new URI("ws://10.231.8.228:12345/kline-api/ws");
-//            URI websocketURI = new URI("wss://ws.byqian.com/kline-api/ws");
+            URI websocketURI = new URI("wss://ws.byqian.com/kline-api/ws");
 //            URI websocketURI = new URI("ws://10.48.1.80:12345/kline-api/ws");
 //            URI websocketURI = new URI("ws://a682264b60c1146e48df0d5015cb6cc2-1099915016.ap-southeast-1.elb.amazonaws.com:12345/kline-api/ws");
 //            URI websocketURI = new URI("wss://ws.byqian.cc/kline-api/ws");
@@ -64,7 +64,7 @@ public class WSClient {
 
             //进行握手
             //客户端与服务端连接的通道，final修饰表示只会有一个
-            final Channel channel = boot.connect(websocketURI.getHost(), 12345).sync().channel();
+            final Channel channel = boot.connect(websocketURI.getHost(), 443).sync().channel();
             //阻塞等待是否握手成功
             System.out.println("连接成功");
             Channel channel1 = WebSocketClientHandler.handshakeFuture.sync().channel();
