@@ -17,6 +17,16 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.ignite</groupId>
+			<artifactId>ignite-core</artifactId>
+			<version>2.15.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ignite</groupId>
+			<artifactId>ignite-spring</artifactId>
+			<version>2.15.0</version>
+		</dependency>
+		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-crypto</artifactId>
 			<version>5.8.8</version>

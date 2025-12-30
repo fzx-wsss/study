@@ -65,7 +65,9 @@ public class HttpUtils {
 		// String response = HttpClientUtils.send(Method.POST, prop.getProperty(uriName), headers, null, nameValuePairs, false, "UTF-8", stringResponseHandler, null,
 		// requestConfig);
 		//String response = HttpUtils.doPostSSL(prop.getProperty(uriName), submitMap, stringResponseHandler, requestConfig);
-    	Object s = doGet("https://oncheckout.keruyun.com/on_checkout/lefu/notify?amount=5840.0&status=SUCCESS&posCati=95965914&transType=PURCHASE&createTime=1545097127881&orderOptimistic=1&customerFee=35.04&posBatch=000001&posRequestId=000320&pan=625907*6250&agentNo=8624708628&completeTime=1545097128607&orderNo=671498248090&customerNo=86221110448&cardType=SEMI_CREDIT_CARD&customerOrderCode=CPRP259812457&sign=AA4A6EA7B33E05B09ADBA6E268B80316");
+        String url = "https://openapi.bitrue.com/api/v1/account?timestamp="+System.currentTimeMillis()+"&recvWindow=5000&signature=2c4078256ec1cc870b73df257cd679ff9a80a077f0482998ac640062d1ee1111";
+
+    	Object s = doGet(url);
     	System.out.println(s);
     	System.out.println(s.toString().equals("SUCCESS"));
     } 

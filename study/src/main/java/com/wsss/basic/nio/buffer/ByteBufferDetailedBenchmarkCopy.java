@@ -1,44 +1,64 @@
 package com.wsss.basic.nio.buffer;
 
 import java.nio.ByteBuffer;
-import java.util.concurrent.TimeUnit;
 
-public class ByteBufferDetailedBenchmark {
+public class ByteBufferDetailedBenchmarkCopy {
 
     // 测试参数
     private static final int BUFFER_SIZE = 1024 * 1024;  // 1MB缓冲区
     private static final int INT_COUNT = BUFFER_SIZE / 4; // 可容纳的int数量（每个int占4字节）
-    private static final int ITERATIONS = 100;          // 操作迭代次数
+    private static final int ITERATIONS = 1000;          // 操作迭代次数
     private static final int WARMUP_LOOPS = 10;            // 预热次数
 
     public static void main(String[] args) {
         // 预热JVM
         ByteBuffer heapBuffer = ByteBuffer.allocate(BUFFER_SIZE);
         ByteBuffer directBuffer = ByteBuffer.allocateDirect(BUFFER_SIZE);
-        warmup(directBuffer);
         warmup(heapBuffer);
+        warmup(directBuffer);
 
-
-        // 直接内存测试
-        System.out.println("\n========== Direct Buffer ==========");
-
-        runAllTests(directBuffer);
         // 堆内存测试
         System.out.println("========== Heap Buffer ==========");
 
-        runAllTests(heapBuffer);
+//        runAllTests(heapBuffer);
+        // Byte操作测试
+        testByteByByteWrite(heapBuffer, "heapBuffer Byte逐笔写入");
+        testByteByByteWrite(directBuffer, "directBuffer Byte逐笔写入");
+        testByteBulkWrite(heapBuffer, "heapBuffer Byte批量写入");
+        testByteBulkWrite(directBuffer, "directBuffer Byte批量写入");
+        testByteByByteRead(heapBuffer, "heapBuffer Byte逐笔读取");
+        testByteByByteRead(directBuffer, "directBuffer Byte逐笔读取");
+        testByteBulkRead(heapBuffer, "heapBuffer Byte批量读取");
+        testByteBulkRead(directBuffer, "directBuffer Byte批量读取");
+
+        // Int操作测试
+        testIntByIntWrite(heapBuffer, "heapBuffer Int逐笔写入");
+        testIntByIntWrite(directBuffer, "directBuffer Int逐笔写入");
+        testIntBulkWrite(heapBuffer, "heapBuffer Int批量写入");
+        testIntBulkWrite(directBuffer, "directBuffer Int批量写入");
+        testIntByIntRead(heapBuffer, "heapBuffer Int逐笔读取");
+        testIntByIntRead(directBuffer, "directBuffer Int逐笔读取");
+        testIntBulkRead(heapBuffer, "heapBuffer Int批量读取");
+        testIntBulkRead(directBuffer, "directBuffer Int批量读取");
+
+        // 直接内存测试
+//        System.out.println("\n========== Direct Buffer ==========");
+
+//        runAllTests(directBuffer);
+        // Byte操作测试
+
+
+
+
+
+        // Int操作测试
+
+
 
 
     }
 
     private static void runAllTests(ByteBuffer buffer) {
-        // Byte操作测试
-        testByteByByteWrite(buffer, "Byte逐笔写入");
-        testByteBulkWrite(buffer, "Byte批量写入");
-        testByteByByteRead(buffer, "Byte逐笔读取");
-        testByteBulkRead(buffer, "Byte批量读取");
-
-        // Int操作测试
         testIntByIntWrite(buffer, "Int逐笔写入");
         testIntBulkWrite(buffer, "Int批量写入");
         testIntByIntRead(buffer, "Int逐笔读取");
@@ -50,8 +70,6 @@ public class ByteBufferDetailedBenchmark {
         System.out.println("Warming up...");
         for (int i = 0; i < WARMUP_LOOPS; i++) {
             runAllTests(buffer);
-//            testByteBulkWrite(buffer, "Warmup");
-//            testIntBulkRead(buffer, "Warmup");
         }
         System.out.println("Warmup completed.\n");
     }

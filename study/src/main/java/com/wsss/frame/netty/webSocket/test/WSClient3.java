@@ -29,14 +29,14 @@ import java.util.concurrent.TimeUnit;
 public class WSClient3 {
 
     //public static final String[] symbols = new String[] {"grt3lusdt","iost3lusdt","alpha3lusdt","kava3lusdt","rvn3lusdt","snx3lusdt","bat3lusdt","band3lusdt","zil3lusdt","hnt3lusdt","chr3lusdt","bal3lusdt","ray3lusdt","mkr3lusdt","iotx3lusdt","blz3lusdt","near3lusdt","rune3lusdt","comp3lusdt","arpa3lusdt","reef3lusdt","one3lusdt","celr3lusdt","sfp3lusdt","bel3lusdt","coti3lusdt","zec3lusdt","omg3lusdt","egld3lusdt","nkn3lusdt","trb3lusdt","alice3lusdt","c983lusdt","icx3lusdt","dent3lusdt","ar3lusdt","bake3lusdt","zen3lusdt","ocean3lusdt","sxp3lusdt","srm3lusdt","lina3lusdt","tlm3lusdt","unfi3lusdt","dash3lusdt","tomo3lusdt","rsr3lusdt","ctsi3lusdt","zrx3lusdt","ctk3lusdt","flow3lusdt","waves3lusdt","knc3lusdt"};
-    public static final String[] symbols = new String[] {"btcusdt"};
+    public static final String[] symbols = new String[] {"btc3lusdt"};
     public static void main(String[] args) throws Exception {
         try {
             //websocke连接的地址，/hello是因为在服务端的websockethandler设置的
-//            URI websocketURI = new URI("wss://ws.bitrue.com/etf/ws");
-            URI websocketURI = new URI("ws://10.48.1.113:12345/stream/ws");
+            URI websocketURI = new URI("wss://ws.bitrue.com/etf/ws");
+//            URI websocketURI = new URI("ws://10.48.1.113:12345/stream/ws");
 //            URI websocketURI = new URI("ws://127.0.0.1:12345/stream/ws");
-
+//            URI websocketURI = new URI("wss://fapiws.bittime.com/stream?listenKey=194b85abb15bb642dd3a886c8619e039db29ce9afd8c8e8a2d40bd65b9a7ef17");
 //            URI websocketURI = new URI("wss://ws.alphtest.cc/stream/ws");
 //            URI websocketURI = new URI("wss://ws.alph.ai/stream/ws");
             //netty基本操作，线程组
@@ -66,7 +66,7 @@ public class WSClient3 {
 
             //进行握手
             //客户端与服务端连接的通道，final修饰表示只会有一个
-            final Channel channel = boot.connect(websocketURI.getHost(), 12345).sync().channel();
+            final Channel channel = boot.connect(websocketURI.getHost(), 443).sync().channel();
             //阻塞等待是否握手成功
             System.out.println("连接成功");
             WebSocketClientHandler.handshakeFuture.sync();

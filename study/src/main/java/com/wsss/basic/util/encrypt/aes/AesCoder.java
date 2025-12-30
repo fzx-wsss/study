@@ -66,7 +66,7 @@ public class AesCoder {
     public static void main(String[] args) throws Exception {
         String aesKey = genKeyAES();
         System.out.println(aesKey);
-        String content = "77777777777";
+        String content = "BFCaYG9qCv96bWo08h0CBmhKLXyjLUtXZ5eu4gMgshGSr6/67gqbHJH7h0Di5Taw";
         String encode = encryptData(aesKey, content);
         System.out.println(decryptData(aesKey, encode));
     }

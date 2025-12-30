@@ -27,7 +27,7 @@ public class NavicatPasswordDecryptor {
     }
 
     public static void main(String[] args) throws Exception {
-        String encryptedPassword = "B536E8BC09B27BD7CF9EB31559A9D5B061FB5ECE6D52E61324A19F399BE1AE3A"; // 替换为实际密文
+        String encryptedPassword = "F81054383D090E235C025BB0CF3CCF9B5806C8DE4FDBCC08FA58BC8690504A25"; // 替换为实际密文
         System.out.println("解密结果: " + decrypt(encryptedPassword));
     }
 }
